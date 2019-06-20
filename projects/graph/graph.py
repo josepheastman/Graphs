@@ -8,26 +8,48 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
 
     def __init__(self):
-        self.vertices = {}
+        self.vertices = {
+            "1": {"2"},
+            "2": {"3", "4"},
+            "3": {"5"},
+            "4": {"6", "7"},
+            "5": {"3"},
+            "6": {"3"},
+            "7": {"1", "6"}
+        }
 
     def add_vertex(self, vertex):
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices["8"] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.vertices[v1] = (v2)
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        visited = set()
+
+        queue = []
+
+        queue.append(starting_vertex)
+        visited.add(starting_vertex)
+
+        while queue:
+            starting_vertex = queue.pop(0)
+            print(starting_vertex, end=" ")
+
+            for i in self.vertices[starting_vertex]:
+                if i not in visited:
+                    queue.append(i)
+                    visited.add(i)
 
     def dft(self, starting_vertex):
         """
