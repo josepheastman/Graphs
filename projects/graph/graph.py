@@ -56,51 +56,51 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        self.vertices["8"] = set()
+        self.vertices[vertex] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        self.vertices[v1] = (v2)
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError("That vertex does not exist")
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
+        visited = set()
 
-        pass
-        # visited = set()
+        queue = []
 
-        # queue = []
+        queue.append(starting_vertex)
+        visited.add(starting_vertex)
 
-        # queue.append(starting_vertex)
-        # visited.add(starting_vertex)
+        while queue:
+            starting_vertex = queue.pop(0)
+            print(starting_vertex, end=" ")
 
-        # while queue:
-        #     starting_vertex = queue.pop(0)
-        #     print(starting_vertex, end=" ")
-
-        #     for i in self.vertices[starting_vertex]:
-        #         if i not in visited:
-        #             queue.append(i)
-        #             visited.add(i)
+            for i in self.vertices[starting_vertex]:
+                if i not in visited:
+                    queue.append(i)
+                    visited.add(i)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        pass
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, path=[]):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        pass  # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
         """
