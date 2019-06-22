@@ -1,7 +1,41 @@
 """
 Simple graph implementation
 """
-from util import Stack, Queue  # These may come in handy.
+# from util import Stack, Queue  # These may come in handy.
+
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return len(self.queue)
+
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+
+    def size(self):
+        return len(self.stack)
 
 
 class Graph:
@@ -35,21 +69,23 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        visited = set()
 
-        queue = []
+        pass
+        # visited = set()
 
-        queue.append(starting_vertex)
-        visited.add(starting_vertex)
+        # queue = []
 
-        while queue:
-            starting_vertex = queue.pop(0)
-            print(starting_vertex, end=" ")
+        # queue.append(starting_vertex)
+        # visited.add(starting_vertex)
 
-            for i in self.vertices[starting_vertex]:
-                if i not in visited:
-                    queue.append(i)
-                    visited.add(i)
+        # while queue:
+        #     starting_vertex = queue.pop(0)
+        #     print(starting_vertex, end=" ")
+
+        #     for i in self.vertices[starting_vertex]:
+        #         if i not in visited:
+        #             queue.append(i)
+        #             visited.add(i)
 
     def dft(self, starting_vertex):
         """
@@ -72,7 +108,21 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        q = Queue()
+        q.enqueue([starting_vertex])
+        visited = set()
+        while q.size() > 0:
+            path = q.dequeue()
+            v = path[-1]
+            if v not in visited:
+                if v == destination_vertex:
+                    return path
+                visited.add(v)
+                for next_vert in self.vertices[v]:
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    q.enqueue(new_path)
+        return None
 
     def dfs(self, starting_vertex, destination_vertex):
         """
